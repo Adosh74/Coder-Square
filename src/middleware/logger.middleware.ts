@@ -5,6 +5,8 @@ export const requestLoggerMiddleware: RequestHandler = (
 	_res,
 	next
 ) => {
-	console.log(`${req.method} ${req.path}- body:${req.body}`);
+	console.log(
+		`${req.method} ${req.path}-body:${JSON.stringify(req.body)}`
+	);
 	next();
 };
