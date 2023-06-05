@@ -3,7 +3,7 @@ import Router from 'express';
 import {
 	signInHandler,
 	signupHandler,
-} from '../../handlers/userHandler';
+} from '../../handlers/authHandler';
 
 const routes = Router();
 
