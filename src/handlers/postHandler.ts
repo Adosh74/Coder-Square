@@ -4,8 +4,16 @@ import { RequestHandler } from 'express';
 import { db } from '../datastore/indexDao';
 import { Post } from '../types';
 
-export const listPostsHandler: RequestHandler = async (req, res) => {
-	res.send({ post: await db.listPosts() });
+export const listPostsHandler: RequestHandler = async (
+	_req,
+	res,
+	next
+) => {
+	try {
+		res.send({ post: await db.listPosts() });
+	} catch (error) {
+		next(error);
+	}
 };
 
 export const createPostHandler: RequestHandler = async (
