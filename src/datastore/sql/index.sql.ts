@@ -60,10 +60,10 @@ export class SqlDatastore implements Datastore {
 		);
 	}
 	getPost(id: string): Promise<Post | undefined> {
-		throw new Error('Method not implemented.');
+		return this.db.get<Post>('SELECT * FROM posts WHERE id =?', id);
 	}
-	deletePost(id: string): Promise<void> {
-		throw new Error('Method not implemented.');
+	async deletePost(id: string): Promise<void> {
+		await this.db.run('Delete FROM posts WHERE id =?', id);
 	}
 	createLike(like: Like): Promise<void> {
 		throw new Error('Method not implemented.');
