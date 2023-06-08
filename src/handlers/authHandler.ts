@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { RequestHandler } from 'express';
+import jwt from 'jsonwebtoken';
 
 import config from '../config';
 import { db } from '../datastore/indexDao';
@@ -63,14 +64,17 @@ export const signInHandler: RequestHandler = async (
 			return res.status(401).send('wrong information');
 		}
 
-		res.status(200).json({
-			message: 'login successful',
-			data: {
-				firstName: user.firstName,
-				lastName: user.lastName,
+		const token = jwt.sign(
+			{
+				id: user.id,
 				username: user.username,
-				email: user.email,
 			},
+			config.tokenSecret as unknown as string
+		);
+
+		res.status(200).json({
+			message: 'user login successful',
+			token: token,
 		});
 	} catch (error) {
 		next(error);

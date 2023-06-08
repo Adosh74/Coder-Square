@@ -18,5 +18,5 @@ import APIs from './routes/indexRoute';
 
 	app.use(errHandler);
 
-	app.listen(3001);
+	app.listen(process.env.PORT || 3001);
 })();
