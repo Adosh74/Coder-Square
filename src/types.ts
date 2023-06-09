@@ -22,8 +22,13 @@ export interface Like {
 
 export interface Comment {
 	id: string;
-	useId: string;
+	userId: string;
 	postId: string;
 	comment: string;
 	postedAt: number;
+}
+
+export interface JwtObject {
+	id: string;
+	username: string;
 }
