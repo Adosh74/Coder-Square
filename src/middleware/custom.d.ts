@@ -5,3 +5,6 @@ declare global {
 		}
 	}
 }
+export type Indexed = {
+	[key: string]: any;
+};
