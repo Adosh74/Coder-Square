@@ -48,7 +48,9 @@ export class SqlDatastore implements Datastore {
 		);
 	}
 	async listPosts(): Promise<Post[]> {
-		return await this.db.all<Post[]>('SELECT * FROM posts');
+		return await this.db.all<Post[]>(
+			'SELECT username, title, url, postedAt FROM posts INNER JOIN users ON posts.userId = users.id'
+		);
 	}
 
 	async createPost(post: Post): Promise<void> {
@@ -79,7 +81,7 @@ export class SqlDatastore implements Datastore {
 	}
 	async listLikes(postId: string): Promise<Like[] | undefined> {
 		return await this.db.all(
-			'SELECT * FROM likes WHERE postId=?',
+			'SELECT username FROM users INNER JOIN likes ON users.id = likes.userId WHERE postId=?',
 			postId
 		);
 	}
@@ -95,7 +97,7 @@ export class SqlDatastore implements Datastore {
 	}
 	async listComment(postId: string): Promise<Comment[]> {
 		return await this.db.all<Comment[]>(
-			'SELECT * FROM comments WHERE postId=? ',
+			'SELECT username, comment, postedAt FROM comments INNER JOIN users ON comments.userId = users.id WHERE postId=? ',
 			postId
 		);
 	}
