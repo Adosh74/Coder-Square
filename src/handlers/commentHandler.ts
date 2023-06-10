@@ -44,13 +44,35 @@ export const listCommentsHandler: RequestHandler = async (
 		const postId = req.params.id;
 
 		const comments: Comment[] = await db.listComment(postId);
-		if (!comments)
+		if (comments.length <= 0)
 			return res.status(400).json({
 				message: 'No comments',
 			});
 
 		res.status(200).json({
 			comments: comments,
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const deleteCommentHandler: RequestHandler = async (
+	req,
+	res,
+	next
+) => {
+	try {
+		// get comment id
+		const commentId = req.params.id;
+		const comment = await db.getCommentById(commentId);
+		if (req.user.id !== comment?.userId)
+			return res.status(401).json({
+				message: 'Can not delete comment',
+			});
+		await db.deleteComment(commentId);
+		res.status(200).json({
+			message: 'Comment deleted successfully',
 		});
 	} catch (error) {
 		next(error);
