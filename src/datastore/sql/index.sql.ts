@@ -77,6 +77,12 @@ export class SqlDatastore implements Datastore {
 			like.postId
 		);
 	}
+	async listLikes(postId: string): Promise<Like[] | undefined> {
+		return await this.db.all(
+			'SELECT * FROM likes WHERE postId=?',
+			postId
+		);
+	}
 	async createComment(comment: Comment): Promise<void> {
 		await this.db.run(
 			'INSERT INTO comments (id, userId, postId, comment, postedAt) VALUES (?, ?, ?, ?, ?)',
@@ -92,6 +98,9 @@ export class SqlDatastore implements Datastore {
 			'SELECT * FROM comments WHERE postId=? ',
 			postId
 		);
+	}
+	async getCommentById(id: string): Promise<Comment | undefined> {
+		return await this.db.get('SELECT * FROM comments WHERE id=?', id);
 	}
 	async deleteComment(id: string): Promise<void> {
 		await this.db.run('DELETE FROM comments WHERE id =?', id);
