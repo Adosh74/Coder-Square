@@ -2,6 +2,12 @@ import { Comment, Like, Post, User } from '../../types';
 import { Datastore } from '../indexDao';
 
 export class InMemoryDatastore implements Datastore {
+	listLikes(postId: string): Promise<Like[] | undefined> {
+		throw new Error('Method not implemented.');
+	}
+	getCommentById(id: string): Promise<Comment | undefined> {
+		throw new Error('Method not implemented.');
+	}
 	private users: User[] = [];
 	private posts: Post[] = [];
 	private comments: Comment[] = [];
