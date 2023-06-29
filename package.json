@@ -7,10 +7,7 @@
 		"dev": "nodemon src/server.ts",
 		"build": "tsc",
 		"copy-files": "cp ./src/datastore/sql/migrations ./dist/datastore/sql/migrations",
-		"start": "npm run build && npm run copy:files && node dist/server.js"
-		"copy:files": "cp ./src/datastore/sql/migrations ./dist/datastore/sql/migrations",
 		"start": "node dist/server.js"
-
 	},
 	"repository": {
 		"type": "git",
